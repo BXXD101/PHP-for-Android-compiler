@@ -23,21 +23,25 @@ export RANLIB=$TOOLCHAIN/aarch64-linux-musl-ranlib
 export STRIP=$TOOLCHAIN/aarch64-linux-musl-strip
 
 
-wget --quiet -P `pwd`/sqlite3 https://www.sqlite.org/2023/sqlite-autoconf-3410200.tar.gz
-tar -xzf `pwd`/sqlite3/*gz 
-sqlite-autoconf-3410200/configure --enable-static=yes --prefix=$sqlite --host=$TARGET --enable-shared=no --disable-dependency-tracking --enable-static-shell=no 
+wget --quiet https://www.sqlite.org/2023/sqlite-autoconf-3410200.tar.gz
+tar -xzf sqlite-autoconf-3410200.tar.gz 
+cd sqlite-autoconf-3410200
+./configure --enable-static=yes --prefix=$sqlite --host=$TARGET --enable-shared=no --disable-dependency-tracking --enable-static-shell=no 
 make -j$(nproc)
 make install
+cd ..
 
 git clone https://github.com/madler/zlib
-zlib/configure --prefix=$zlib --static
+cd zlib
+./configure --prefix=$zlib --static
 make -j$(nproc)
 make install
+cd ..
 
-
-wget --quiet -P `pwd`/libxml https://gitlab.gnome.org/GNOME/libxml2/-/archive/v2.10.1/libxml2-v2.10.1.tar.gz
-tar -xzf `pwd`/libxml/*gz 
-libxml2-v2.10.1/autogen.sh --enable-static=yes \
+wget --quiet https://gitlab.gnome.org/GNOME/libxml2/-/archive/v2.10.1/libxml2-v2.10.1.tar.gz
+tar -xzf libxml2-v2.10.1.tar.gz
+cd libxml2-v2.10.1
+./autogen.sh --enable-static=yes \
 		--prefix=$libxml
 		--host=$TARGET \
 		--without-lzma \
@@ -46,8 +50,10 @@ libxml2-v2.10.1/autogen.sh --enable-static=yes \
 		--enable-shared=no 
 make -j$(nproc)
 make install
+cd ..
 
-php-src/configure CFLAGS="-static" --host=$TARGET \
+cd php-src
+./configure CFLAGS="-static" --host=$TARGET \
 --with-sqlite3 \
 --enable-static \
 --with-zlib=$zlib \
@@ -56,6 +62,6 @@ php-src/configure CFLAGS="-static" --host=$TARGET \
 --disable-opcache \
 --disable-shared
 
-make LDFLAGS="-all-static" -C php-src -j$(nproc)
-
+make LDFLAGS="-all-static" -j$(nproc)
+cd ..
 
