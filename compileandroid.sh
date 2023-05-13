@@ -4,19 +4,19 @@
 mkdir -p sqlite3 libxml zlib musl
 
 echo "Downloading toolchains"
-wget --quiet -P `pwd`/musl http://musl.cc/aarch64-linux-musl-cross.tgz
-tar -xzf `pwd`/musl/*gz 
+wget --quiet http://musl.cc/aarch64-linux-musl-cross.tgz
+tar -xzf aarch64-linux-musl-cross.tgz
 
 sqlite=`pwd`/sqlite3
 libxml=`pwd`/libxml
 zlib=`pwd`/zlib
-TARGET=aarch64-linux-musl
 
 git clone https://github.com/php/php-src
 echo "Creating config.."
 `pwd`/php-src/buildconf
 
-export TOOLCHAIN=`pwd`/musl/aarch64-linux-musl-cross/bin
+export TARGET=aarch64-linux-musl
+export TOOLCHAIN=`pwd`/aarch64-linux-musl-cross/bin
 export AR=$TOOLCHAIN/aarch64-linux-musl-ar 
 export CC=$TOOLCHAIN/aarch64-linux-musl-cc
 export AS=$CC
