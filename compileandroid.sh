@@ -12,6 +12,10 @@ libxml=`pwd`/libxml
 zlib=`pwd`/zlib
 TARGET=aarch64-linux-musl
 
+git clone https://github.com/php/php-src
+echo "Creating config.."
+`pwd`/php-src/buildconf
+
 export TOOLCHAIN=`pwd`/musl/aarch64-linux-musl-cross/bin
 export AR=$TOOLCHAIN/aarch64-linux-musl-ar 
 export CC=$TOOLCHAIN/aarch64-linux-musl-cc
@@ -21,30 +25,19 @@ export LD=$TOOLCHAIN/aarch64-linux-musl-ld
 export RANLIB=$TOOLCHAIN/aarch64-linux-musl-ranlib
 export STRIP=$TOOLCHAIN/aarch64-linux-musl-strip
 
-echo "Toolchain setup done"
 
-echo "Downloading latest PHP.."
-git clone https://github.com/php/php-src
-echo "Creating config.."
-`pwd`/php-src/buildconf
-
-echo "Downloading latest sqlite3.."
 wget --quiet -P `pwd`/sqlite3 https://www.sqlite.org/2023/sqlite-autoconf-3410200.tar.gz
 tar -xzf `pwd`/sqlite3/*gz 
 sqlite-autoconf-3410200/configure --enable-static=yes --prefix=$sqlite --host=$TARGET --enable-shared=no --disable-dependency-tracking --enable-static-shell=no 
 make -j$(nproc)
 make install
 
-
-echo "Downloading latest zlib"
 git clone https://github.com/madler/zlib
 zlib/configure --prefix=$zlib --static
 make -j$(nproc)
 make install
 
 
-
-echo "Downloading latest libxml"
 wget --quiet -P `pwd`/libxml https://gitlab.gnome.org/GNOME/libxml2/-/archive/v2.10.1/libxml2-v2.10.1.tar.gz
 tar -xzf `pwd`/libxml/*gz 
 libxml2-v2.10.1/autogen.sh --enable-static=yes \
