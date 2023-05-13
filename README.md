@@ -15,3 +15,5 @@ Now run adb shell and do cd /data/local/tmp. Make php executable by doing chmod 
 
 Enjoy.
 
+# Important
+The generated PHP only works for Android devices with aarch64. The binary does not work on other archs.
