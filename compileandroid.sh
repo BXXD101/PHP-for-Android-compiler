@@ -65,3 +65,6 @@ cd php-src
 make LDFLAGS="-all-static" -j$(nproc)
 cd ..
 
+mv php-src/sapi/cli/php php
+
+
