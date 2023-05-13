@@ -40,8 +40,8 @@ make install
 
 
 echo "Downloading latest zlib"
-git clone https://github.com/madler/zlibtar
-zlibtar/configure --prefix=$zlib --static
+git clone https://github.com/madler/zlib
+zlib/configure --prefix=$zlib --static
 make
 make install
 
