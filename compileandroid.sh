@@ -1,8 +1,5 @@
 #!/bin/bash
 
-
-mkdir -p sqlite3 libxml zlib musl
-
 echo "Downloading toolchains"
 wget --quiet http://musl.cc/aarch64-linux-musl-cross.tgz
 tar -xzf aarch64-linux-musl-cross.tgz
