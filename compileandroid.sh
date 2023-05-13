@@ -60,7 +60,7 @@ libxml2-v2.10.1/autogen.sh --enable-static=yes \
 make
 make install
 
-php-src/configure --host=$TARGET \
+php-src/configure CFLAGS="-static" --host=$TARGET \
 --with-sqlite3 \
 --enable-static \
 --with-zlib=$zlib \
@@ -69,6 +69,6 @@ php-src/configure --host=$TARGET \
 --disable-opcache \
 --disable-shared
 
-make -C php-src -j 10
+make LDFLAGS="-all-static" -C php-src -j 10
 
 
