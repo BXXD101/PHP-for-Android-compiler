@@ -1,10 +1,7 @@
 #!/bin/bash
 
 
-mkdir sqlite3
-mkdir libxml
-mkdir zlib
-mkdir musl
+mkdir -p sqlite3 libxml zlib musl
 
 echo "Downloading toolchains"
 wget --quiet -P `pwd`/musl http://musl.cc/aarch64-linux-musl-cross.tgz
@@ -35,14 +32,14 @@ echo "Downloading latest sqlite3.."
 wget --quiet -P `pwd`/sqlite3 https://www.sqlite.org/2023/sqlite-autoconf-3410200.tar.gz
 tar -xzf `pwd`/sqlite3/*gz 
 sqlite-autoconf-3410200/configure --enable-static=yes --prefix=$sqlite --host=$TARGET --enable-shared=no --disable-dependency-tracking --enable-static-shell=no 
-make
+make -j$(nproc)
 make install
 
 
 echo "Downloading latest zlib"
 git clone https://github.com/madler/zlib
 zlib/configure --prefix=$zlib --static
-make
+make -j$(nproc)
 make install
 
 
@@ -57,7 +54,7 @@ libxml2-v2.10.1/autogen.sh --enable-static=yes \
 		--without-iconv \
 		--without-python \
 		--enable-shared=no 
-make
+make -j$(nproc)
 make install
 
 php-src/configure CFLAGS="-static" --host=$TARGET \
@@ -69,6 +66,6 @@ php-src/configure CFLAGS="-static" --host=$TARGET \
 --disable-opcache \
 --disable-shared
 
-make LDFLAGS="-all-static" -C php-src -j 10
+make LDFLAGS="-all-static" -C php-src -j$(nproc)
 
 
