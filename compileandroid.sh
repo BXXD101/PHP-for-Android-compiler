@@ -60,7 +60,7 @@ make install
 cd ..
 
 cd php-src
-./configure CFLAGS="-static" --host=$TARGET \
+./configure CFLAGS="-static" LIBZIP_LIBS="$zip/lib" LIBZIP_CFLAGS="-I$zip/include" --host=$TARGET \
 --with-sqlite3 \
 --enable-ipv6 \
 --enable-static \
@@ -75,5 +75,3 @@ make LDFLAGS="-all-static" -j$(nproc)
 cd ..
 
 mv php-src/sapi/cli/php php
-
-
