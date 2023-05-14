@@ -23,9 +23,8 @@ export RANLIB=$TOOLCHAIN/aarch64-linux-musl-ranlib
 export STRIP=$TOOLCHAIN/aarch64-linux-musl-strip
 
 
-wget --quiet https://www.sqlite.org/2023/sqlite-autoconf-3410200.tar.gz
-tar -xzf sqlite-autoconf-3410200.tar.gz 
-cd sqlite-autoconf-3410200
+git clone https://github.com/sqlite/sqlite
+cd sqlite
 ./configure --enable-static=yes --prefix=$sqlite --host=$TARGET --enable-shared=no --disable-dependency-tracking --enable-static-shell=no 
 make -j$(nproc)
 make install
