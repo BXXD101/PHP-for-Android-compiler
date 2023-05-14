@@ -7,6 +7,7 @@ tar -xzf aarch64-linux-musl-cross.tgz
 sqlite=`pwd`/sqlite3
 libxml=`pwd`/libxml
 zlib=`pwd`/zlib
+zip=`pwd`/zip
 
 git clone https://github.com/php/php-src
 echo "Creating config.."
@@ -22,6 +23,26 @@ export LD=$TOOLCHAIN/aarch64-linux-musl-ld
 export RANLIB=$TOOLCHAIN/aarch64-linux-musl-ranlib
 export STRIP=$TOOLCHAIN/aarch64-linux-musl-strip
 
+wget --quiet https://libzip.org/download/libzip-1.9.2.tar.gz
+tar -xzf libzip-1.9.2.tar.gz
+cd libzip-1.9.2
+cmake . \
+	-DBUILD_SHARED_LIBS=OFF \
+	-DCMAKE_PREFIX_PATH=$zip \
+	-DCMAKE_INSTALL_PREFIX=$zip \
+	-DCMAKE_INSTALL_LIBDIR=lib \
+	-DBUILD_TOOLS=OFF \
+	-DBUILD_REGRESS=OFF \			
+	-DBUILD_EXAMPLES=OFF \
+	-DBUILD_DOC=OFF \
+	-DENABLE_BZIP2=OFF \
+	-DENABLE_COMMONCRYPTO=OFF \
+	-DENABLE_GNUTLS=OFF \
+	-DENABLE_MBEDTLS=OFF \
+	-DENABLE_LZMA=OFF
+make -j$(nproc)
+make install
+cd ..
 
 git clone https://github.com/sqlite/sqlite
 cd sqlite
@@ -57,6 +78,7 @@ cd php-src
 --enable-ipv6 \
 --enable-static \
 --with-zlib=$zlib \
+--with-zip=$zip \
 --without-iconv \
 --with-libxml=$libxml \
 --disable-opcache \
