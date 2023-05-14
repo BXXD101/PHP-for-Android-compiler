@@ -55,6 +55,7 @@ cd ..
 cd php-src
 ./configure CFLAGS="-static" --host=$TARGET \
 --with-sqlite3 \
+--enable-ipv6 \
 --enable-static \
 --with-zlib=$zlib \
 --without-iconv \
