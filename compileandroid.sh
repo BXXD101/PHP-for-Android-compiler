@@ -4,9 +4,9 @@ echo "Downloading toolchains"
 wget --quiet http://musl.cc/aarch64-linux-musl-cross.tgz
 tar -xzf aarch64-linux-musl-cross.tgz
 
-sqlite=`pwd`/sqlite3
-libxml=`pwd`/libxml
-zlib=`pwd`/zlib
+sqlite=`pwd`/sql
+libxml=`pwd`/xml
+zlib=`pwd`/lib
 # zip=`pwd`/zip we will add zip support later
 
 git clone https://github.com/php/php-src
@@ -33,14 +33,14 @@ export STRIP=$TOOLCHAIN/aarch64-linux-musl-strip
 
 git clone https://github.com/sqlite/sqlite
 cd sqlite
-./configure --enable-static=yes --prefix=$sqlite --host=$TARGET --enable-shared=no --disable-dependency-tracking --enable-static-shell=no 
+./configure --enable-static=yes --prefix=$sql --host=$TARGET --enable-shared=no --disable-dependency-tracking --enable-static-shell=no 
 make -j$(nproc)
 make install
 cd ..
 
 git clone https://github.com/madler/zlib
 cd zlib
-./configure --prefix=$zlib --static
+./configure --prefix=$lib --static
 make -j$(nproc)
 make install
 cd ..
@@ -48,19 +48,24 @@ cd ..
 wget --quiet https://gitlab.gnome.org/GNOME/libxml2/-/archive/v2.10.1/libxml2-v2.10.1.tar.gz
 tar -xzf libxml2-v2.10.1.tar.gz
 cd libxml2-v2.10.1
-./autogen.sh --enable-static=yes --prefix=$libxml --host=$TARGET --without-lzma --without-iconv --without-python --enable-shared=no 
+./autogen.sh --enable-static=yes --prefix=$xml --host=$TARGET --without-lzma --without-iconv --without-python --enable-shared=no 
 make -j$(nproc)
 make install
 cd ..
 
+git clone https://github.com/pmmp/PocketMine-C-ChunkUtils
+mv PocketMine-C-ChunkUtils php-src/ext
+
 cd php-src
 ./configure CFLAGS="-static" --host=$TARGET \
 --with-sqlite3 \
+--enable-pocketmine-chunkutils
 --enable-ipv6 \
 --enable-static \
---with-zlib=$zlib \
+--with-sqlite=$sql
+--with-zlib=$lib \
 --without-iconv \
---with-libxml=$libxml \
+--with-libxml=$xml \
 --disable-opcache \
 --disable-shared
 
