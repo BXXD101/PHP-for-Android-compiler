@@ -48,13 +48,7 @@ cd ..
 wget --quiet https://gitlab.gnome.org/GNOME/libxml2/-/archive/v2.10.1/libxml2-v2.10.1.tar.gz
 tar -xzf libxml2-v2.10.1.tar.gz
 cd libxml2-v2.10.1
-./autogen.sh --enable-static=yes \
-		--prefix=$libxml
-		--host=$TARGET \
-		--without-lzma \
-		--without-iconv \
-		--without-python \
-		--enable-shared=no 
+./autogen.sh --enable-static=yes --prefix=$libxml --host=$TARGET --without-lzma --without-iconv --without-python --enable-shared=no 
 make -j$(nproc)
 make install
 cd ..
