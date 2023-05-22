@@ -1,11 +1,14 @@
 # PHP-for-Android-compiler
-Cross compile the latest PHP as single file to Android for aarch64. Make sure to have git and wget installed in your Linux distro. 
+Cross compile the latest PHP as single file to Android for aarch64 or x86_64. Make sure to have git and wget installed in your Linux distro. 
+Supported targets: aarch64-linux, x86_64-linux
 
-Just run ./compileandroid.sh and all will be done for you. 
+Building for aarch64: ./compileandroid.sh aarch64-linux
+Building for x86_64: ./compileandroid.sh x86_64
 
 After the build is finished you can find the php binary in the dir where you ran the script. 
 
 This PHP wont work with PocketMine-MP since it requires additional libs. These will be added to the script soon.
+
 
 # How can i run the generated PHP on my Android device?
 You will need ADB installed on your computer. You can get it from: https://dl.google.com/android/repository/platform-tools-latest-windows.zip
@@ -16,4 +19,4 @@ Now run adb shell and do cd /data/local/tmp. Make php executable by doing chmod 
 Enjoy.
 
 # Important
-The generated PHP only works for Android devices with aarch64. The binary does not work on other archs. 
+Only aarch64-linux, x86_64-linux are supported yet. More will be added later. You can of course extend the script.
