@@ -70,7 +70,7 @@ cd ..
 
 #compile php
 cd php-src
-./configure CFLAGS="-static -03 -pipe -ffunction-sections -fdata-sections -funsafe-loop-optimizations -fpredictive-commoning -ftracer -ftree-loop-im -frename-registers -fcx-limited-range" --host=$TARGET --with-sqlite3 --enable-ipv6 --enable-static --with-zlib --without-iconv --with-libxml --disable-opcache --disable-shared
+./configure CFLAGS="-static -O3 -pipe -ffunction-sections -fdata-sections -funsafe-loop-optimizations -fpredictive-commoning -ftracer -ftree-loop-im -frename-registers -fcx-limited-range" --host=$TARGET --with-sqlite3 --enable-ipv6 --enable-static --with-zlib --without-iconv --with-libxml --disable-opcache --disable-shared
 
 make LDFLAGS="-all-static -Wl,--gc-sections" -j$(nproc)
 cd ..
