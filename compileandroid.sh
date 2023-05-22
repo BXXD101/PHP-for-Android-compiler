@@ -59,7 +59,7 @@ cd ..
 
 #compile php
 cd php-src
-./configure CFLAGS="-static -02 -pipe -ffunction-sections -fdata-sections" --host=$TARGET \
+./configure CFLAGS="-static -02 -pipe -ffunction-sections -fdata-sections -funsafe-loop-optimizations -fpredictive-commoning -ftracer -ftree-loop-im -frename-registers -fcx-limited-range" --host=$TARGET \
 --with-sqlite3 \
 --enable-pocketmine-chunkutils
 --enable-ipv6 \
