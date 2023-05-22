@@ -2,15 +2,15 @@
 
 FILE = ""
 
-if [ $1 -eq "aarch64-linux" ]
-then 
+if [ "$1" = "aarch64-linux" ]; then
   FILE="aarch64-linux-musl"
-elif [ $1 -eq "x86_64" ] then
+elif [ "$1" = "x86_64" ]; then
   FILE="x86_64-linux-musl"
-elif then 
+else
   echo "Not supported. Pass one of these: aarch64-linux or x86_64"
   exit 1
 fi
+
 
 echo "Downloading toolchains"
 wget --quiet http://musl.cc/$FILE-cross.tgz
