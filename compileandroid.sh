@@ -30,6 +30,7 @@ export LD=$TOOLCHAIN/$FILE-ld
 export RANLIB=$TOOLCHAIN/$FILE-ranlib
 export STRIP=$TOOLCHAIN/$FILE-strip
 
+#download and compile sqlite
 wget https://www.sqlite.org/2023/sqlite-autoconf-3420000.tar.gz
 tar xvf sqlite-autoconf*
 ./configure --enable-static=yes --host=$TARGET --enable-shared=no --disable-dependency-tracking --enable-static-shell=no 
@@ -37,6 +38,7 @@ make -j$(nproc)
 make install
 cd ..
 
+#download and compile zlib
 git clone https://github.com/madler/zlib
 cd zlib
 ./configure --static
@@ -44,6 +46,7 @@ make -j$(nproc)
 make install
 cd ..
 
+#download and compile libxml2
 wget --quiet https://gitlab.gnome.org/GNOME/libxml2/-/archive/v2.10.1/libxml2-v2.10.1.tar.gz
 tar -xzf libxml2-v2.10.1.tar.gz
 cd libxml2-v2.10.1
@@ -52,6 +55,9 @@ make -j$(nproc)
 make install
 cd ..
 
+#Add more here if you want additional libs
+
+#compile php
 cd php-src
 ./configure CFLAGS="-static" --host=$TARGET \
 --with-sqlite3 \
