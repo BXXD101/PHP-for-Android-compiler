@@ -4,9 +4,9 @@ FILE = ""
 
 if [ $1 -eq "aarch64-linux" ]
 then 
-  ARCH="aarch64-linux-musl"
+  FILE="aarch64-linux-musl"
 elif [ $1 -eq "x86_64" ] then
-  ARCH="x86_64-linux-musl"
+  FILE="x86_64-linux-musl"
 elif then 
   echo "Not supported. Pass one of these: aarch64-linux or x86_64"
   exit 1
