@@ -1,22 +1,34 @@
 #!/bin/bash
 
+FILE = ""
+
+if [ $1 -eq "aarch64-linux" ]
+then 
+  ARCH="aarch64-linux-musl"
+elif [ $1 -eq "x86_64" ] then
+  ARCH="x86_64-linux-musl"
+elif then 
+  echo "Not supported. Pass one of these: aarch64-linux or x86_64"
+  exit 1
+fi
+
 echo "Downloading toolchains"
-wget --quiet http://musl.cc/aarch64-linux-musl-cross.tgz
-tar -xzf aarch64-linux-musl-cross.tgz
+wget --quiet http://musl.cc/$FILE-cross.tgz
+tar -xzf $FILE-cross.tgz
 
 git clone https://github.com/php/php-src
 echo "Creating config.."
 `pwd`/php-src/buildconf
 
-export TARGET=aarch64-linux-musl
-export TOOLCHAIN=`pwd`/aarch64-linux-musl-cross/bin
-export AR=$TOOLCHAIN/aarch64-linux-musl-ar 
-export CC=$TOOLCHAIN/aarch64-linux-musl-cc
+export TARGET=$FILE
+export TOOLCHAIN=`pwd`/$FILE-cross/bin
+export AR=$TOOLCHAIN/$FILE-ar 
+export CC=$TOOLCHAIN/$FILE-cc
 export AS=$CC
-export CXX=$TOOLCHAIN/aarch64-linux-musl-c++
-export LD=$TOOLCHAIN/aarch64-linux-musl-ld
-export RANLIB=$TOOLCHAIN/aarch64-linux-musl-ranlib
-export STRIP=$TOOLCHAIN/aarch64-linux-musl-strip
+export CXX=$TOOLCHAIN/$FILE-c++
+export LD=$TOOLCHAIN/$FILE-ld
+export RANLIB=$TOOLCHAIN/$FILE-ranlib
+export STRIP=$TOOLCHAIN/$FILE-strip
 
 wget https://www.sqlite.org/2023/sqlite-autoconf-3420000.tar.gz
 tar xvf sqlite-autoconf*
