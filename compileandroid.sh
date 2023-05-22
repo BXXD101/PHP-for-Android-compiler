@@ -1,6 +1,6 @@
 #!/bin/bash
 
-FILE = ""
+FILE=""
 
 if [ "$1" = "aarch64-linux" ]; then
   FILE="aarch64-linux-musl"
