@@ -59,7 +59,7 @@ cd ..
 
 #compile php
 cd php-src
-./configure CFLAGS="-static" --host=$TARGET \
+./configure CFLAGS="-static -02 -pipe" --host=$TARGET \
 --with-sqlite3 \
 --enable-pocketmine-chunkutils
 --enable-ipv6 \
