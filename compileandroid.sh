@@ -59,7 +59,7 @@ cd ..
 
 #compile php
 cd php-src
-./configure CFLAGS="-static -02 -pipe" --host=$TARGET \
+./configure CFLAGS="-static -02 -pipe -ffunction-sections -fdata-sections" --host=$TARGET \
 --with-sqlite3 \
 --enable-pocketmine-chunkutils
 --enable-ipv6 \
@@ -70,7 +70,7 @@ cd php-src
 --disable-opcache \
 --disable-shared
 
-make LDFLAGS="-all-static" -j$(nproc)
+make LDFLAGS="-all-static -Wl,--gc-sections" -j$(nproc)
 cd ..
 
 mv php-src/sapi/cli/php php
