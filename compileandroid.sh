@@ -30,6 +30,16 @@ export LD=$TOOLCHAIN/$FILE-ld
 export RANLIB=$TOOLCHAIN/$FILE-ranlib
 export STRIP=$TOOLCHAIN/$FILE-strip
 
+echo $TARGET
+echo $TOOLCHAIN
+echo $AR
+echo $CC
+echo $AS
+echo $CXX
+echo $LD
+echo $RANLIB
+echo $STRIP
+
 #download and compile sqlite
 wget https://www.sqlite.org/2023/sqlite-autoconf-3420000.tar.gz
 tar xvf sqlite-autoconf*
