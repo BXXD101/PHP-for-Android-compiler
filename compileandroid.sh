@@ -33,6 +33,7 @@ export STRIP=$TOOLCHAIN/$FILE-strip
 #download and compile sqlite
 wget https://www.sqlite.org/2023/sqlite-autoconf-3420000.tar.gz
 tar xvf sqlite-autoconf*
+cd sqlite-autoconf-3420000
 ./configure --enable-static=yes --host=$TARGET --enable-shared=no --disable-dependency-tracking --enable-static-shell=no 
 make -j$(nproc)
 make install
