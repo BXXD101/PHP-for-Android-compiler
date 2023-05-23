@@ -62,7 +62,7 @@ cd ..
 wget --quiet https://gitlab.gnome.org/GNOME/libxml2/-/archive/v2.10.1/libxml2-v2.10.1.tar.gz
 tar -xzf libxml2-v2.10.1.tar.gz
 cd libxml2-v2.10.1
-./autogen.sh --enable-static=yes --host=$TARGET --without-lzma --without-iconv --without-python --enable-shared=no --with-zlib
+./autogen.sh --enable-static=yes --host=$TARGET --without-lzma --without-iconv --without-python --enable-shared=no --with-zlib 
 make -j$(nproc)
 make install
 cd ..
@@ -71,7 +71,7 @@ cd ..
 
 #compile php
 cd php-src
-./configure CFLAGS=$OPTIMIZATION --host=$TARGET --with-sqlite3 --enable-ipv6 --enable-static --with-zlib --without-iconv --with-libxml --disable-opcache --disable-shared
+./configure CFLAGS=$OPTIMIZATION --host=$TARGET --with-sqlite3 --enable-ipv6 --enable-static --with-zlib --without-iconv --with-libxml --disable-opcache --disable-shared --enable-inline-optimization
 
 make LDFLAGS="-all-static -Wl,--gc-sections" -j$(nproc)
 cd ..
