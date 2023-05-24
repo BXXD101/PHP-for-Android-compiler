@@ -1,8 +1,12 @@
 # PHP-for-Android-compiler
 Cross compile the latest PHP as single file to Android for aarch64 or x86_64. Make sure to have git and wget installed in your Linux distro. 
-Supported targets: aarch64-linux, x86_64-linux
+
+Supported targets: 
+aarch64-linux
+x86_64-linux
 
 Building for aarch64: ./compileandroid.sh aarch64-linux
+
 Building for x86_64: ./compileandroid.sh x86_64
 
 After the build is finished you can find the php binary in the dir where you ran the script. 
@@ -19,4 +23,6 @@ Now run adb shell and do cd /data/local/tmp. Make php executable by doing chmod 
 Enjoy.
 
 # Important
+The script tries high optimization for compilation and may take longer build change the flag -03 to lower one if you want fast compilation and dont care about performance afterwards.
+
 Only aarch64-linux, x86_64-linux are supported yet. More will be added later. You can of course extend the script.
