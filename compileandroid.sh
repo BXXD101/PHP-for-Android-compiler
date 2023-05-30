@@ -17,10 +17,6 @@ echo "Downloading toolchains"
 wget --quiet http://musl.cc/$FILE-cross.tgz
 tar -xzf $FILE-cross.tgz
 
-git clone https://github.com/php/php-src
-echo "Creating config.."
-`pwd`/php-src/buildconf
-
 export TARGET=$FILE
 export TOOLCHAIN=`pwd`/$FILE-cross/bin
 export AR=$TOOLCHAIN/$FILE-ar 
@@ -70,6 +66,8 @@ cd ..
 #Add more here if you want additional libs
 
 #compile php
+git clone https://github.com/php/php-src
+`pwd`/php-src/buildconf
 cd php-src
 ./configure CFLAGS=$OPTIMIZATION --host=$TARGET --with-sqlite3 --enable-ipv6 --enable-static --with-zlib --without-iconv --with-libxml --disable-opcache --disable-shared --enable-inline-optimization
 
