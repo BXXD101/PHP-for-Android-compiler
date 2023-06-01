@@ -1,7 +1,7 @@
 #!/bin/bash
 
 FILE=""
-OPTIMIZATION="-static -O3 -pipe -ffunction-sections -fdata-sections -funsafe-loop-optimizations -fpredictive-commoning -ftracer -ftree-loop-im -frename-registers -fcx-limited-range"
+OPTIMIZATION="-static -O3 -pipe -march=armv8-a -ffunction-sections -fdata-sections -funsafe-loop-optimizations -fpredictive-commoning -ftracer -ftree-loop-im -frename-registers -fcx-limited-range"
 
 if [ "$1" = "aarch64-linux" ]; then
   FILE="aarch64-linux-musl"
